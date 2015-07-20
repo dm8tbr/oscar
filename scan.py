@@ -11,6 +11,7 @@ import urllib2
 import hashlib
 import hmac
 import base64
+import HTMLParser
 
 import trello
 from twilio.rest import TwilioRestClient
@@ -99,6 +100,8 @@ def publish_barcode_opp(opp):
     communication_method = conf.get()['communication_method']
     if communication_method == 'email':
         send_via_email(message, subject)
+    elif communication_method == 'debug':
+        print message
     else:
         send_via_twilio(message)
 
@@ -218,7 +221,8 @@ while True:
     # Get the item's description
     u = UPCAPI(conf.get()['upcdatabase_api_key'])
     try:
-        desc = u.get_description(barcode)
+        html = HTMLParser.HTMLParser()
+        desc = html.unescape(u.get_description(barcode))
         print "Received description '{0}' for barcode {1}".format(desc, repr(barcode))
     except KeyError, e:
         print 'invalid barcode received... adding opportunity to database'
