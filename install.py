@@ -86,8 +86,9 @@ communication_method = raw_input("Communication method ('email' or 'text'): ")
 while communication_method not in ['email', 'text']:
     communication_method = raw_input("Please input 'email' or 'text': ")
 
-gmail_user = ''
-gmail_password = ''
+mail_user = ''
+mail_password = ''
+mail_server = ''
 email_dest = ''
 twilio_src = ''
 twilio_sid = ''
@@ -97,20 +98,18 @@ if communication_method == 'email':
     ######################################## Email
     print
     print "To enable this functionality using email as the communication method, "
-    print "you need an account with GMail:"
+    print "you need an account with an email service."
+    print "If you want to, you can enter your information below."
+    print "If not, no sweat: just leave the input blank. You can always come back"
+    print "and modify Oscar's config file later."
     print
-    print "    https://mail.google.com/"
-    print
-    print "If you want to, you can sign up for a GMail account and enter your"
-    print "information below. If not, no sweat: just leave the input blank. You"
-    print "can always come back and modify Oscar's config file later."
-    print
-    gmail_user = raw_input('GMail Email Address: ')
-    if gmail_user != '':
-        gmail_password = raw_input('GMail Password: ')
+    mail_user = raw_input('mail user name: ')
+    if mail_user != '':
+        mail_password = raw_input('mail password: ')
+        mail_server = raw_input('smtp server: ')
         email_dest = raw_input('Destination email (the address you want emailed): ')
     else:
-        gmail_password = ''
+        mail_password = ''
         email_dest = ''
 else:
     ######################################## Twilio
@@ -256,8 +255,9 @@ scanner_device: '{scanner_device}'
 
 communication_method: '{communication_method}'
 
-gmail_user: '{gmail_user}'
-gmail_password: '{gmail_password}'
+mail_user: '{mail_user}'
+mail_password: '{mail_password}'
+mail_server: '{mail_server}'
 email_dest: '{email_dest}'
 
 twilio_src: '{twilio_src}'

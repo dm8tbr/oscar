@@ -113,17 +113,17 @@ def send_via_twilio(msg):
 
 def send_via_email(msg, subject):
     to = conf.get()['email_dest']
-    gmail_user = conf.get()['gmail_user'] 
-    gmail_pwd = conf.get()['gmail_password']
-    smtpserver = smtplib.SMTP("smtp.gmail.com",587)
+    mail_user = conf.get()['mail_user'] 
+    mail_pwd = conf.get()['mail_password']
+    smtpserver = smtplib.SMTP(conf.get()['mail_server'],587)
     smtpserver.ehlo()
     smtpserver.starttls()
     smtpserver.ehlo
-    smtpserver.login(gmail_user, gmail_pwd)
-    header = 'To:' + to + '\n' + 'From: ' + gmail_user + '\n' + 'Subject: ' + subject + ' \n'
+    smtpserver.login(mail_user, mail_pwd)
+    header = 'To:' + to + '\n' + 'From: ' + mail_user + '\n' + 'Subject: ' + subject + ' \n'
     print '\nSending email...\n'
     message = header + '\n ' + msg +' \n\n'
-    smtpserver.sendmail(gmail_user, to, message)
+    smtpserver.sendmail(mail_user, to, message)
     print 'Email sent.'
     smtpserver.close()
 
