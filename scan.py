@@ -166,11 +166,11 @@ def add_grocery_item(trello_api, item):
             if matches:
                 qty = int(matches[0].replace("(","").replace(")",""))
                 qty += 1
-                print "increasing qty on '{0}' to '{1}'".format(item, qty)
+                print u"increasing qty on '{0}' to '{1}'".format(item, qty)
             trello_api.cards.update_name(card['id'], item + " (" + str(qty) + ")")
             return
 
-    print "Adding '{0}' to grocery list".format(item)
+    print u"Adding '{0}' to grocery list".format(item)
     trello_api.lists.new_card(grocery_list['id'], item)
 
     #card_names = [card['name'] for card in cards]
@@ -223,7 +223,7 @@ while True:
     try:
         html = HTMLParser.HTMLParser()
         desc = html.unescape(u.get_description(barcode))
-        print "Received description '{0}' for barcode {1}".format(desc, repr(barcode))
+        print u"Received description '{0}' for barcode {1}".format(desc, repr(barcode))
     except KeyError, e:
         print 'invalid barcode received... adding opportunity to database'
         opp = create_barcode_opp(trello_db, barcode)
