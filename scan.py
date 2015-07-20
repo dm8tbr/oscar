@@ -95,7 +95,7 @@ def create_barcode_opp(trello_db, barcode, desc=''):
 
 
 def publish_barcode_opp(opp):
-    message = '''Hi!\n\n Oscar here. You scanned a code ({1}) I didn't recognize.\n Care to fill me in?\n{0}'''.format(opp_url(opp), opp['barcode'])
+    message = '''Hi!\n\nOscar here. You scanned a code ({1}) I didn't recognize.\nCare to fill me in?\n{0}'''.format(opp_url(opp), opp['barcode'])
     subject = '''Didn't Recognize Barcode'''
     communication_method = conf.get()['communication_method']
     if communication_method == 'email':
@@ -122,7 +122,7 @@ def send_via_email(msg, subject):
     smtpserver.login(mail_user, mail_pwd)
     header = 'To:' + to + '\n' + 'From: ' + mail_user + '\n' + 'Subject: ' + subject + ' \n'
     print '\nSending email...\n'
-    message = header + '\n ' + msg +' \n\n'
+    message = header + '\n' + msg +'\n'
     smtpserver.sendmail(mail_user, to, message)
     print 'Email sent.'
     smtpserver.close()
