@@ -95,7 +95,7 @@ def create_barcode_opp(trello_db, barcode, desc=''):
 
 
 def publish_barcode_opp(opp):
-    message = '''Hi! Oscar here. You scanned a code I didn't recognize for a "{1}". Care to fill me in?  {0}'''.format(opp_url(opp), opp['desc'])
+    message = '''Hi!\n\n Oscar here. You scanned a code ({1}) I didn't recognize.\n Care to fill me in?\n{0}'''.format(opp_url(opp), opp['barcode'])
     subject = '''Didn't Recognize Barcode'''
     communication_method = conf.get()['communication_method']
     if communication_method == 'email':
