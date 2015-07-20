@@ -75,7 +75,7 @@ def generate_opp_id():
 
 
 def opp_url(opp):
-    return 'http://{0}/learn-barcode/{1}'.format(local_ip(), opp['opp_id'])
+    return '{0}/learn-barcode/{1}'.format(conf.get()['base_url'], opp['opp_id'])
 
 
 def create_barcode_opp(trello_db, barcode, desc=''):
