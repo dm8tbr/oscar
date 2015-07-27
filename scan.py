@@ -51,6 +51,15 @@ class UPCAPI:
     def _url(self, upc):
         return '{0}/{1}/{2}'.format(self.BASEURL, self._api_key, upc)
 
+    def get_itemname(self, upc):
+        """Returns the product name for the given UPC.
+           `upc`: A string containing the UPC."""
+        url = self._url(upc)
+        print url
+        json_blob = urllib2.urlopen(url).read()
+        print json_blob
+        return json.loads(json_blob)['itemname']
+
     def get_description(self, upc):
         """Returns the product description for the given UPC.
            `upc`: A string containing the UPC."""
@@ -222,7 +231,7 @@ while True:
     u = UPCAPI(conf.get()['upcdatabase_api_key'])
     try:
         html = HTMLParser.HTMLParser()
-        desc = html.unescape(u.get_description(barcode))
+        desc = html.unescape(u.get_itemname(barcode))
         print u"Received description '{0}' for barcode {1}".format(desc, repr(barcode))
     except KeyError, e:
         print 'invalid barcode received... adding opportunity to database'
