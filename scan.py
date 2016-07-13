@@ -227,6 +227,14 @@ while True:
         add_grocery_item(trello_api, barcode_rule['item'])
         continue
 
+    print 'Barcode not found on trello - creating opportunity'
+    opp = create_barcode_opp(trello_db, barcode)
+    print "Publishing learning opportunity"
+    publish_barcode_opp(opp)
+    continue
+
+    # Everything below is never executed, effectively disabling UPC search
+
     # Get the item's description
     u = UPCAPI(conf.get()['upcdatabase_api_key'])
     try:
