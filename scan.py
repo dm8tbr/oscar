@@ -158,7 +158,7 @@ def match_description_rule(trello_db, desc):
     return None
 
 
-def add_grocery_item(trello_api, item):
+def add_grocery_item(trello_api, item, photo_url):
     """Adds the given item to the grocery list (if it's not already present)."""
     # Get the current grocery list
     grocery_board_id = conf.get()['trello_grocery_board']
@@ -180,7 +180,9 @@ def add_grocery_item(trello_api, item):
             return
 
     print u"Adding '{0}' to grocery list".format(item)
-    trello_api.lists.new_card(grocery_list['id'], item)
+    new_card_result = trello_api.lists.new_card(grocery_list['id'], item)
+    if photo_url:
+        trello_api.cards.new_attachment(new_card_result['id'],photo_url,item)
 
     #card_names = [card['name'] for card in cards]
 
@@ -224,7 +226,7 @@ while True:
 
     barcode_rule = match_barcode_rule(trello_db, barcode)
     if barcode_rule is not None:
-        add_grocery_item(trello_api, barcode_rule['item'])
+        add_grocery_item(trello_api, barcode_rule['item'], barcode_rule['photo_url'])
         continue
 
     print 'Barcode not found on trello - creating opportunity'
